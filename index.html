@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Switch</title>
+    <link rel="author" href="humans.txt">
+</head>
+<style>
+body {
+    background: #ccc;
+}
+
+.sw-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 70px;
+    width: 160px;
+    transform: translate(-50%, -50%);
+    background: #0099ff url(./bg.png) center bottom no-repeat;
+    border-radius: 70px;
+    box-shadow: inset 0px 2px 0px 0px rgba(0, 0, 0, 0.5), 0px 2px 0px 0px rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 400ms ease-in-out;
+}
+
+.sw-container.active {
+    background: #270e44 url(./bg.png) center top no-repeat;
+    transition: background 400ms ease-in-out;
+}
+
+.sw-ball {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    height: 60px;
+    width: 60px;
+    background: #ffd800;
+    border-radius: 30px;
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.5);
+    transition: background 400ms ease-in-out;
+}
+
+.sw-ball.active {
+    background: white;
+    transition: background 400ms ease-in-out;
+}
+.sw-ball span {
+	opacity:0;
+	position: absolute;
+	height:0px;
+	width: 0px;
+	top:0;
+	right:0px;
+	background: #270e44;
+	border-radius: 20px;
+}
+</style>
+
+<body>
+    <div class="sw-container">
+        <div class="sw-ball"><span></span></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $flag = false;
+        $speed = 500;
+        $ease = 'easeInOutExpo'
+        $('body').on('click', '.sw-container', function() {
+            if (!$flag) {
+                $flag = true;
+                $(this).addClass('active');
+                $(this).children('.sw-ball').addClass('active');
+                $ball = $(this).children('.sw-ball');
+                $ball.children('span').animate({ opacity: '1', height: '40px', width: '40px' }, $speed, $ease)
+                $ball.animate({ left: '95px' }, $speed, $ease)
+            } else {
+                $flag = false;
+                $(this).removeClass('active');
+                $(this).children('.sw-ball').removeClass('active');
+                $ball = $(this).children('.sw-ball');
+                $ball.children('span').animate({ opacity: '0', height: '0px', width: '0px' }, $speed, $ease)
+                $ball.animate({ left: '5px' }, $speed, $ease)
+            }
+        })
+    });
+    </script>
+</body>
+
+</html>
